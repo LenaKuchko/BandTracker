@@ -51,9 +51,26 @@ namespace BandTracker
        Assert.Equal(controlVenue, testVenue);
     }
 
+    [Fact]
+    public void Venue_AddBand_AssignsBandToVenue()
+     {
+      Venue newVenue = new Venue("Modacenter");
+      newVenue.Save();
+      Band newBand = new Band("Maroon5", new DateTime(2016, 05, 21));
+      newBand.Save();
+      Console.WriteLine(newBand.Id);
+
+      newVenue.AddBand(newBand);
+      List<Band> testList = newVenue.GetBands();
+      List<Band> controlList = new List<Band>{newBand};
+
+      Assert.Equal(controlList, testList);
+     }
+
     public void Dispose()
     {
       Venue.DeleteAll();
+      Band.DeleteAll();
     }
   }
 }
