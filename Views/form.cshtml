@@ -35,3 +35,33 @@
     <h3>@Model["new-venue"].Name have been added successfully!</h3>
   }
 </div>
+
+@if(@Model.ContainsKey("new-band"))
+{
+  <h2 class="text-center">Add new band</h2>
+  <div class="col-sm-6">
+    <form action="/bands/new" method="post">
+      <div class="form-group">
+        <label>Band's Name:</label>
+        <input type="text" name="name" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label>Bands:</label>
+        <select name="band" class="form-control">
+          <option value=""></option>
+          @if(@Model["venues"].Count != 0)
+          {
+            @foreach(var venue in @Model["venues"])
+            {
+              <option value="@venue.Id">@band.Name</option>
+            }
+          }
+        </select>
+        <div class="form-group">
+          <label>Date:</label>
+          <input type="date" name="date" class="form-control" required>
+        </div>
+      <button type="submit" name="button">Add new band</button>
+    </form>
+  </div>
+}

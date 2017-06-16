@@ -6,7 +6,7 @@
 {
   <div class="row">
     <h2>@Model["venue"].Name</h2>
-    <form action="/venues/{id}/update" method="post">
+    <form action='/venues/@Model["venue"].Id/update' method="post">
       <input type="hidden" name="_method" value="PATCH">
       <div class="form-group">
         <label>Venue Name</label>
@@ -19,8 +19,8 @@
           <h4><input type="checkbox" name="band" value="@band.Id"> Band: @band.Name</h4>
         }
       </ul>
+      <button class="btn btn-danger" type="submit" name="button">Update</button>
     </form>
-    <button class="btn btn-danger" type="submit" name="button">Update</button>
   </div>
 }
   <div class="row">

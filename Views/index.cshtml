@@ -20,6 +20,9 @@
   <div class="col-sm-6">
     <h1 class="text-center">Bands</h1>
     <hr>
+    <form action="/bands/new" method="get">
+      <button  class="btn btn-info" type="submit" name="button">Add band</button>
+    </form>
     @if(@Model.ContainsKey("allBands"))
     {
       @foreach(var band in @Model["allBands"])
