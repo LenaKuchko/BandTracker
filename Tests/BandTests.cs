@@ -23,6 +23,15 @@ namespace BandTracker
       Assert.Equal(controlList, testList);
     }
 
+    [Fact]
+    public void Band_Equals_BandEqualsBand()
+    {
+      Band controlBand = new Band("Maroon", new DateTime (2016, 05, 21));
+      Band testBand = new Band("Maroon", new DateTime (2016, 05, 21));
+      Assert.Equal(controlBand, testBand);
+    }
+
+
     public void Dispose()
     {
       Band.DeleteAll();

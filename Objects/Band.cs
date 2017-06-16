@@ -51,6 +51,20 @@ namespace BandTracker.Objects
 
       return allBands;
     }
+    public override bool Equals(System.Object otherBand)
+    {
+      if (!(otherBand is Band))
+      {
+        return false;
+      }
+      else
+      {
+        Band newBand = (Band) otherBand;
+        return (this.Id == newBand.Id &&
+                this.Name == newBand.Name &&
+                this.Date == newBand.Date);
+      }
+    }
 
     public static void DeleteAll()
     {
