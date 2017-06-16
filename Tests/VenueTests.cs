@@ -96,6 +96,27 @@ namespace BandTracker
       Assert.Equal(controlList, testList);
     }
 
+    [Fact]
+    public void Venue_DeleteBands_DeletesAllOfVenuesBands()
+    {
+      Venue venue = new Venue("Providence Park");
+      venue.Save();
+      Band band1 = new Band("Maroon5", new DateTime(2016, 05, 21));
+      band1.Save();
+      Band band2 = new Band("Rammstein", new DateTime(2017, 01, 25));
+      band2.Save();
+
+
+      venue.AddBand(band1);
+      venue.AddBand(band2);
+      venue.DeleteBands();
+
+      List<Band> testList = venue.GetBands();
+      List<Band> controlList = new List<Band>{};
+
+      Assert.Equal(controlList, testList);
+    }
+
     public void Dispose()
     {
       Venue.DeleteAll();

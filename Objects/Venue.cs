@@ -189,6 +189,18 @@ namespace BandTracker.Objects
       DB.CloseConnection();
     }
 
+    public void DeleteBands()
+    {
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM bands_venues WHERE venue_id = @VenueId", DB.GetConnection());
+      cmd.Parameters.Add(new SqlParameter("@VenueId", this.Id));
+
+      cmd.ExecuteNonQuery();
+      DB.CloseConnection();
+    }
+
     public static void DeleteAll()
     {
       DB.CreateConnection();
