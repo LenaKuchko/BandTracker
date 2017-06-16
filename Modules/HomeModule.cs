@@ -23,18 +23,20 @@ namespace BandTracker
         model.Add("venues-bands", venue.GetBands());
         return View["index.cshtml", model];
       };
-      Get["venues/new"] = _ => {
+      Get["/venues/new"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         model.Add("bands", Band.GetAll());
-        return View["form.cshtml"];
+        return View["form.cshtml", model];
       };
-      Post["venues/new"] = _ => {
+      Post["/venues/new"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
+        model.Add("bands", Band.GetAll());
         Venue newVenue = new Venue(Request.Form["name"]);
         newVenue.Save();
-        if (Request.Form("band") != "")
+        if (Request.Form["band"] != "")
         {
-          newVenue.AddBand(Band.Find(Request.Form["band"]));
+          Band selectedBand = Band.Find(Request.Form["band"]);
+          newVenue.AddBand(selectedBand, Request.Form["date"]);
           model.Add("band", Band.Find(Request.Form["band"]));
         }
         model.Add("new-venue", newVenue);

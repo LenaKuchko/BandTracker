@@ -27,6 +27,13 @@
   <div class="col-sm-6">
     <h1 class="text-center">Bands</h1>
     <hr>
+    @if(@Model.ContainsKey("allBands"))
+    {
+      @foreach(var band in @Model["allBands"])
+      {
+        <h3><a href="/band/@band.Id">@band.Name</a></h3>
+      }
+    }
   </div>
 </div>
 @if(@Model.ContainsKey("show-venue"))

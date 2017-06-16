@@ -59,7 +59,7 @@ namespace BandTracker
       Band newBand = new Band("Maroon5");
       newBand.Save();
 
-      newBand.AddVenue(newVenue);
+      newBand.AddVenue(newVenue, new DateTime(2017, 03, 12));
       List<Venue> testList = newBand.GetVenues();
       List<Venue> controlList = new List<Venue>{newVenue};
 

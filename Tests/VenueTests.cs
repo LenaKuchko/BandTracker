@@ -60,7 +60,7 @@ namespace BandTracker
       newBand.Save();
       Console.WriteLine(newBand.Id);
 
-      newVenue.AddBand(newBand);
+      newVenue.AddBand(newBand, new DateTime(2016, 05, 21));
       List<Band> testList = newVenue.GetBands();
       List<Band> controlList = new List<Band>{newBand};
 
@@ -106,8 +106,8 @@ namespace BandTracker
       Band band2 = new Band("Rammstein");
       band2.Save();
 
-      venue.AddBand(band1);
-      venue.AddBand(band2);
+      venue.AddBand(band1, new DateTime(2013, 04, 19));
+      venue.AddBand(band2, new DateTime(2013, 04, 19));
       venue.DeleteBands();
 
       List<Band> testList = venue.GetBands();
@@ -126,8 +126,8 @@ namespace BandTracker
       Band band2 = new Band("Rammstein");
       band2.Save();
 
-      venue.AddBand(band1);
-      venue.AddBand(band2);
+      venue.AddBand(band1, new DateTime(2013, 04, 19));
+      venue.AddBand(band2, new DateTime(2013, 04, 19));
       venue.DeleteBandRelationship(band1);
 
       List<Band> testList = venue.GetBands();

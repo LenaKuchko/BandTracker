@@ -109,14 +109,16 @@ namespace BandTracker.Objects
       return foundVenue;
     }
 
-    public void AddBand(Band bandToAdd)
+    public void AddBand(Band bandToAdd, DateTime date)
     {
       DB.CreateConnection();
       DB.OpenConnection();
 
-      SqlCommand cmd = new SqlCommand("INSERT INTO bands_venues (band_id, venue_id) VALUES (@BandId, @VenueId);", DB.GetConnection());
+      SqlCommand cmd = new SqlCommand("INSERT INTO bands_venues (band_id, venue_id, date) VALUES (@BandId, @VenueId, @Date);", DB.GetConnection());
       cmd.Parameters.Add(new SqlParameter("@BandId", bandToAdd.Id));
       cmd.Parameters.Add(new SqlParameter("@VenueId", this.Id));
+      cmd.Parameters.Add(new SqlParameter("@Date", date));
+
 
       cmd.ExecuteNonQuery();
 
