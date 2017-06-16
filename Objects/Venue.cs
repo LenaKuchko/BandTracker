@@ -83,7 +83,7 @@ namespace BandTracker.Objects
      }
 
     public static Venue Find(int searchId)
-     {
+    {
       DB.CreateConnection();
       DB.OpenConnection();
 
