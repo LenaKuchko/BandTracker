@@ -54,5 +54,36 @@ namespace BandTracker.Objects
         return (this.Id == newVenue.Id && this.Name == newVenue.Name);
       }
     }
+
+    public void Save()
+     {
+       DB.CreateConnection();
+       DB.OpenConnection();
+
+       SqlCommand cmd = new SqlCommand("INSERT INTO venues (name) OUTPUT INSERTED.id VALUES (@VenueName)", DB.GetConnection());
+
+       cmd.Parameters.Add(new SqlParameter("@VenueName", this.Name));
+
+       SqlDataReader rdr = cmd.ExecuteReader();
+       while(rdr.Read())
+       {
+         this.Id = rdr.GetInt32(0);
+       }
+       if (rdr != null)
+       {
+         rdr.Close();
+       }
+       DB.CloseConnection();
+     }
+
+    public static void DeleteAll()
+    {
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM venues;", DB.GetConnection());
+      cmd.ExecuteNonQuery();
+      DB.CloseConnection();
+    }
   }
 }
