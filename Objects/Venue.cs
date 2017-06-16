@@ -9,6 +9,12 @@ namespace BandTracker.Objects
     public int Id {get; set;}
     public string Name {get; set;}
 
+    public Venue()
+    {
+      Name = null;
+      Id = 0;
+    }
+
     public Venue(string name, int id = 0)
     {
       Name = name;
@@ -75,6 +81,33 @@ namespace BandTracker.Objects
        }
        DB.CloseConnection();
      }
+
+    public static Venue Find(int searchId)
+     {
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM venues WHERE id = @VenueId;", DB.GetConnection());
+
+      cmd.Parameters.Add(new SqlParameter("@VenueId", searchId));
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      Venue foundVenue = new Venue();
+      while (rdr.Read())
+      {
+        foundVenue.Id = rdr.GetInt32(0);
+        foundVenue.Name = rdr.GetString(1);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
+
+      return foundVenue;
+    }
 
     public static void DeleteAll()
     {
