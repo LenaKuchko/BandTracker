@@ -1,0 +1,21 @@
+@{
+  Layout = "Shared/_Layout.cshtml";
+}
+<div class="row">
+  <h2>@Model["venue"].Name</h2>
+  <form class="" action="/venues/{id}/update" method="post">
+    <input type="hidden" name="_method" value="PATCH">
+    <div class="form-group">
+      <label>Venue Name</label>
+      <input class="form-control" type="text" name="name" value="@Model["venue"].Name" required>
+    </div>
+    <ul>
+      <h3>Please check band which you want add or delete</h3>
+      @foreach(var band in @Model["bands"])
+      {
+        <h4><input type="checkbox" name="band" value="@band.Id"> Band: @band.Name</h4>
+      }
+    </ul>
+  </form>
+  <button type="submit" name="button">Update</button>
+</div>

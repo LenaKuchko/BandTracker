@@ -21,17 +21,18 @@ namespace BandTracker
         model.Add("allVenues", Venue.GetAll());
         model.Add("venue", venue);
         model.Add("venues-bands", venue.GetBands());
-        // model.Add("events", newVenue.GetEvents(selectedBand));
         return View["index.cshtml", model];
       };
       Get["/venues/{venId}/bands/{bandId}/events"] = parameters => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         Venue selectedVenue = Venue.Find(parameters.venId);
         Band selectedBand = Band.Find(parameters.bandId);
+        model.Add("venue", selectedVenue);
         model.Add("allVenues", Venue.GetAll());
         model.Add("show-venue", selectedVenue);
         model.Add("venues-bands", selectedVenue.GetBands());
         model.Add("events", selectedVenue.GetEvents(selectedBand));
+        Console.WriteLine(selectedVenue.GetEvents(selectedBand)[0]);
         return View["index.cshtml", model];
       };
       Get["/venues/new"] = _ => {
@@ -53,6 +54,16 @@ namespace BandTracker
         model.Add("new-venue", newVenue);
         return View["form.cshtml", model];
       };
+      Get["/venues/{id}/update"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Venue selectedVenue = Venue.Find(parameters.id);
+        model.Add("venue", selectedVenue);
+        model.Add("bands", selectedVenue.GetBands());
+        return View["update_form.cshtml", model];
+      };
+      // Patch["/venues/update"] = _ => {
+      //
+      // };
     }
   }
 }

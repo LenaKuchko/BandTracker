@@ -9,18 +9,11 @@
     <form action="/venues/new" method="get">
       <button  class="btn btn-info" type="submit" name="button">Add venue</button>
     </form>
-    <!-- <form action="/venues/update" method="get">
-      <button  class="btn btn-info" type="submit" name="button">Edit venue</button>
-    </form>
-    <form action="/venues/new" method="post">
-      <button  class="btn btn-info" type="submit" name="button">Add venue</button>
-    </form>
-  </div> -->
     @if(@Model.ContainsKey("allVenues"))
     {
       @foreach(var venue in @Model["allVenues"])
       {
-        <h3><a href="/venues/@venue.Id">@venue.Name</a></h3>
+        <h4><a href="/venues/@venue.Id">@venue.Name</a></h4>
       }
     }
   </div>
@@ -40,6 +33,9 @@
 {
   <div class="row">
     <h2>@Model["venue"].Name</h2>
+    <form action='/venues/@Model["venue"].Id/update' method="get">
+      <button  class="btn btn-warning" type="submit" name="button">Edit venue</button>
+    </form>
     <hr>
     <h3>Brief Description</h3>
     <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h4>
@@ -49,9 +45,10 @@
       <h4><a href='/venues/@Model["venue"].Id/bands/@band.Id/events'>@band.Name</a></h4>
       @if(@Model.ContainsKey("events"))
       {
+        <h3>Events with this band by date:</h3>
         @foreach(var item in @Model["events"])
         {
-          <h4>@item</h4>
+          <h4>@item.ToString("d")</h4>
         }
       }
     }
