@@ -66,6 +66,28 @@ namespace BandTracker.Objects
       }
     }
 
+    public void Save()
+     {
+       DB.CreateConnection();
+       DB.OpenConnection();
+
+       SqlCommand cmd = new SqlCommand("INSERT INTO bands (name, date) OUTPUT INSERTED.id VALUES (@BandName, @BandDate)", DB.GetConnection());
+
+       cmd.Parameters.Add(new SqlParameter("@BandName", this.Name));
+       cmd.Parameters.Add(new SqlParameter("@BandDate", this.Date));
+
+       SqlDataReader rdr = cmd.ExecuteReader();
+       while(rdr.Read())
+       {
+         this.Id = rdr.GetInt32(0);
+       }
+       if (rdr != null)
+       {
+         rdr.Close();
+       }
+       DB.CloseConnection();
+     }
+
     public static void DeleteAll()
     {
       DB.CreateConnection();

@@ -31,6 +31,18 @@ namespace BandTracker
       Assert.Equal(controlBand, testBand);
     }
 
+    [Fact]
+    public void Band_Save_SaveToDatabase()
+    {
+      Band newBand = new Band("Maroon", new DateTime (2016, 05, 21));
+      newBand.Save();
+
+      Band testBand = Band.GetAll()[0];
+      Assert.Equal(newBand, testBand);
+    }
+
+
+
 
     public void Dispose()
     {
