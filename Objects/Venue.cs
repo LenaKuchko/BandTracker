@@ -15,7 +15,6 @@ namespace BandTracker.Objects
       Id = id;
     }
 
-
     public static List<Venue>GetAll()
     {
       DB.CreateConnection();
@@ -43,5 +42,17 @@ namespace BandTracker.Objects
       return allVenues;
     }
 
+    public override bool Equals(System.Object otherVenue)
+    {
+      if (!(otherVenue is Venue))
+      {
+        return false;
+      }
+      else
+      {
+        Venue newVenue = (Venue) otherVenue;
+        return (this.Id == newVenue.Id && this.Name == newVenue.Name);
+      }
+    }
   }
 }

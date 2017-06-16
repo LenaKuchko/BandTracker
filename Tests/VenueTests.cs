@@ -16,12 +16,21 @@ namespace BandTracker
     }
 
     [Fact]
-     public void Venue_GetAll_DatabaseEmptyOnload()
-     {
-       List<Venue> testList = Venue.GetAll();
-       List<Venue> controlList = new List<Venue>{};
-       Assert.Equal(controlList, testList);
-     }
+    public void Venue_GetAll_DatabaseEmptyOnload()
+    {
+      List<Venue> testList = Venue.GetAll();
+      List<Venue> controlList = new List<Venue>{};
+      Assert.Equal(controlList, testList);
+    }
+
+
+    [Fact]
+    public void Venue_Equals_VenueEqualsVenue()
+    {
+      Venue controlVenue = new Venue("ModaCenter");
+      Venue testVenue = new Venue("ModaCenter");
+      Assert.Equal(controlVenue, testVenue);
+    }
 
     public void Dispose()
     {
