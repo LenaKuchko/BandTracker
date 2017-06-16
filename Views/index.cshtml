@@ -36,19 +36,24 @@
     }
   </div>
 </div>
-@if(@Model.ContainsKey("show-venue"))
+@if(@Model.ContainsKey("venue"))
 {
   <div class="row">
-    <h2>@Model["show-venue"].Name</h2>
+    <h2>@Model["venue"].Name</h2>
     <hr>
     <h3>Brief Description</h3>
     <h4>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</h4>
     <h3>Bands which belongs</h3>
     @foreach(var band in @Model["venues-bands"])
     {
-      <h4>@band.Name</h4>
-      <h4>@band.Date.ToString("d")</h4>
-
+      <h4><a href='/venues/@Model["venue"].Id/bands/@band.Id/events'>@band.Name</a></h4>
+      @if(@Model.ContainsKey("events"))
+      {
+        @foreach(var item in @Model["events"])
+        {
+          <h4>@item</h4>
+        }
+      }
     }
   </div>
 }

@@ -119,7 +119,6 @@ namespace BandTracker.Objects
       cmd.Parameters.Add(new SqlParameter("@VenueId", this.Id));
       cmd.Parameters.Add(new SqlParameter("@Date", date));
 
-
       cmd.ExecuteNonQuery();
 
       DB.CloseConnection();
@@ -152,6 +151,34 @@ namespace BandTracker.Objects
       DB.CloseConnection();
 
       return bands;
+    }
+
+    public List<DateTime> GetEvents(Band band)
+    {
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM bands_venues WHERE band_id = @BandId AND venue_id = @VenueId", DB.GetConnection());
+      cmd.Parameters.Add(new SqlParameter("@BandId", band.Id));
+      cmd.Parameters.Add(new SqlParameter("@VenueId", this.Id));
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<DateTime> events = new List<DateTime>{};
+      while(rdr.Read())
+      {
+        DateTime date = rdr.GetDateTime(3);
+
+        events.Add(date);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
+
+      return events;
     }
 
     public void Update(string name)

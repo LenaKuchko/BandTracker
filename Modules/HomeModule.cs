@@ -19,8 +19,19 @@ namespace BandTracker
         Dictionary<string, object> model = new Dictionary<string, object>{};
         Venue venue = Venue.Find(parameters.id);
         model.Add("allVenues", Venue.GetAll());
-        model.Add("show-venue", venue);
+        model.Add("venue", venue);
         model.Add("venues-bands", venue.GetBands());
+        // model.Add("events", newVenue.GetEvents(selectedBand));
+        return View["index.cshtml", model];
+      };
+      Get["/venues/{venId}/bands/{bandId}/events"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Venue selectedVenue = Venue.Find(parameters.venId);
+        Band selectedBand = Band.Find(parameters.bandId);
+        model.Add("allVenues", Venue.GetAll());
+        model.Add("show-venue", selectedVenue);
+        model.Add("venues-bands", selectedVenue.GetBands());
+        model.Add("events", selectedVenue.GetEvents(selectedBand));
         return View["index.cshtml", model];
       };
       Get["/venues/new"] = _ => {
