@@ -153,6 +153,30 @@ namespace BandTracker.Objects
       return bands;
     }
 
+    public void Update(string name)
+    {
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("UPDATE venues SET name = @VenueName OUTPUT INSERTED.name WHERE id = @VenueId;", DB.GetConnection());
+
+      cmd.Parameters.Add(new SqlParameter("@VenueName", name));
+      cmd.Parameters.Add(new SqlParameter("@VenueId", this.Id));
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this.Name = rdr.GetString(0);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
+    }
+
 
     public static void DeleteAll()
     {
