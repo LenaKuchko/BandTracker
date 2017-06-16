@@ -201,6 +201,18 @@ namespace BandTracker.Objects
       DB.CloseConnection();
     }
 
+    public void DeleteBandRelationship(Band toDelete)
+    {
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("DELETE FROM bands_venues WHERE band_id = @BandId;", DB.GetConnection());
+
+      cmd.Parameters.Add(new SqlParameter("@BandId", toDelete.Id));
+      cmd.ExecuteNonQuery();
+      DB.CloseConnection();
+    }
+
     public static void DeleteAll()
     {
       DB.CreateConnection();

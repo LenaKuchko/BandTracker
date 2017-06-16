@@ -106,13 +106,32 @@ namespace BandTracker
       Band band2 = new Band("Rammstein", new DateTime(2017, 01, 25));
       band2.Save();
 
-
       venue.AddBand(band1);
       venue.AddBand(band2);
       venue.DeleteBands();
 
       List<Band> testList = venue.GetBands();
       List<Band> controlList = new List<Band>{};
+
+      Assert.Equal(controlList, testList);
+    }
+
+    [Fact]
+    public void Venue_DeleteBandRelationship_DeletesRelationship()
+    {
+      Venue venue = new Venue("ModaCenter");
+      venue.Save();
+      Band band1 = new Band("Maroon5", new DateTime(2016, 05, 21));
+      band1.Save();
+      Band band2 = new Band("Rammstein", new DateTime(2017, 01, 25));
+      band2.Save();
+
+      venue.AddBand(band1);
+      venue.AddBand(band2);
+      venue.DeleteBandRelationship(band1);
+
+      List<Band> testList = venue.GetBands();
+      List<Band> controlList = new List<Band>{band2};
 
       Assert.Equal(controlList, testList);
     }
