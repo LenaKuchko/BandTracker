@@ -80,6 +80,24 @@ namespace BandTracker
       Assert.Equal(controlVenue, newVenue);
     }
 
+    // [Fact]
+    // public void Venue_GetAllOtherBands_ReturnsOtherBands()
+    // {
+    //   Venue venue = new Venue("Providence Park");
+    //   venue.Save();
+    //   Band band1 = new Band("Maroon5");
+    //   band1.Save();
+    //   Band band2 = new Band("Rammstein");
+    //   band2.Save();
+    //
+    //   venue.AddBand(band1, new DateTime(2017, 05, 13));
+    //
+    //   List<Band> testList = venue.GetBandsNotBelong();
+    //   List<Band> controlList = new List<Band>{band2};
+    //
+    //   Assert.Equal(controlList, testList);
+    // }
+
     [Fact]
     public void Venue_Delete_DeletesSingleVenue()
     {

@@ -59,11 +59,29 @@ namespace BandTracker
         Venue selectedVenue = Venue.Find(parameters.id);
         model.Add("venue", selectedVenue);
         model.Add("bands", selectedVenue.GetBands());
+        model.Add("show", "update-form");
+        // model.Add("otherBands", selectedVenue.GetBandsNotBelong());
+
         return View["update_form.cshtml", model];
       };
-      // Patch["/venues/update"] = _ => {
-      //
-      // };
+      Patch["/venues/{id}/update"] = parameters => {
+        Dictionary<string, object> model = new Dictionary<string, object>{};
+        Venue selectedVenue = Venue.Find(parameters.id);
+        string bands = Request.Form["band"];
+        if(bands != null)
+        {
+          string[] values = bands.Split(',');
+          foreach(string bandId in values)
+          {
+            selectedVenue.DeleteBandRelationship(Band.Find(int.Parse(bandId)));
+          }
+        }
+        selectedVenue.Update(Request.Form["name"]);
+        model.Add("venue", selectedVenue);
+        model.Add("bands", selectedVenue.GetBands());
+        model.Add("show", "update-info");
+        return View ["update_form.cshtml", model];
+      };
     }
   }
 }
