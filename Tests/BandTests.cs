@@ -26,15 +26,15 @@ namespace BandTracker
     [Fact]
     public void Band_Equals_BandEqualsBand()
     {
-      Band controlBand = new Band("Maroon5", new DateTime (2016, 05, 21));
-      Band testBand = new Band("Maroon5", new DateTime (2016, 05, 21));
+      Band controlBand = new Band("Maroon5");
+      Band testBand = new Band("Maroon5");
       Assert.Equal(controlBand, testBand);
     }
 
     [Fact]
     public void Band_Save_SaveToDatabase()
     {
-      Band newBand = new Band("Maroon5", new DateTime (2016, 05, 21));
+      Band newBand = new Band("Maroon5");
       newBand.Save();
 
       Band testBand = Band.GetAll()[0];
@@ -44,7 +44,7 @@ namespace BandTracker
     [Fact]
     public void Band_Find_FindsBandInDB()
     {
-       Band controlBand = new Band("Maroon5", new DateTime (2016, 05, 21));
+       Band controlBand = new Band("Maroon5");
        controlBand.Save();
        Band testBand = Band.Find(controlBand.Id);
 
@@ -56,7 +56,7 @@ namespace BandTracker
      {
       Venue newVenue = new Venue("Modacenter");
       newVenue.Save();
-      Band newBand = new Band("Maroon5", new DateTime(2016, 05, 21));
+      Band newBand = new Band("Maroon5");
       newBand.Save();
 
       newBand.AddVenue(newVenue);

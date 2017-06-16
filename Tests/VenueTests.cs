@@ -56,7 +56,7 @@ namespace BandTracker
      {
       Venue newVenue = new Venue("Modacenter");
       newVenue.Save();
-      Band newBand = new Band("Maroon5", new DateTime(2016, 05, 21));
+      Band newBand = new Band("Maroon5");
       newBand.Save();
       Console.WriteLine(newBand.Id);
 
@@ -101,9 +101,9 @@ namespace BandTracker
     {
       Venue venue = new Venue("Providence Park");
       venue.Save();
-      Band band1 = new Band("Maroon5", new DateTime(2016, 05, 21));
+      Band band1 = new Band("Maroon5");
       band1.Save();
-      Band band2 = new Band("Rammstein", new DateTime(2017, 01, 25));
+      Band band2 = new Band("Rammstein");
       band2.Save();
 
       venue.AddBand(band1);
@@ -121,9 +121,9 @@ namespace BandTracker
     {
       Venue venue = new Venue("ModaCenter");
       venue.Save();
-      Band band1 = new Band("Maroon5", new DateTime(2016, 05, 21));
+      Band band1 = new Band("Maroon5");
       band1.Save();
-      Band band2 = new Band("Rammstein", new DateTime(2017, 01, 25));
+      Band band2 = new Band("Rammstein");
       band2.Save();
 
       venue.AddBand(band1);

@@ -13,14 +13,12 @@ namespace BandTracker.Objects
     public Band()
     {
       Name = null;
-      Date = default(DateTime);
       Id = 0;
     }
 
-    public Band(string name, DateTime date, int id = 0)
+    public Band(string name, int id = 0)
     {
       Name = name;
-      Date = date;
       Id = id;
     }
 
@@ -37,9 +35,8 @@ namespace BandTracker.Objects
       {
         int id = rdr.GetInt32(0);
         string name = rdr.GetString(1);
-        DateTime date = rdr.GetDateTime(2);
 
-        Band newBand = new Band(name, date, id);
+        Band newBand = new Band(name, id);
         allBands.Add(newBand);
       }
 
@@ -61,8 +58,7 @@ namespace BandTracker.Objects
       {
         Band newBand = (Band) otherBand;
         return (this.Id == newBand.Id &&
-                this.Name == newBand.Name &&
-                this.Date == newBand.Date);
+                this.Name == newBand.Name);
       }
     }
 
@@ -71,10 +67,9 @@ namespace BandTracker.Objects
        DB.CreateConnection();
        DB.OpenConnection();
 
-       SqlCommand cmd = new SqlCommand("INSERT INTO bands (name, date) OUTPUT INSERTED.id VALUES (@BandName, @BandDate)", DB.GetConnection());
+       SqlCommand cmd = new SqlCommand("INSERT INTO bands (name) OUTPUT INSERTED.id VALUES (@BandName)", DB.GetConnection());
 
        cmd.Parameters.Add(new SqlParameter("@BandName", this.Name));
-       cmd.Parameters.Add(new SqlParameter("@BandDate", this.Date));
 
        SqlDataReader rdr = cmd.ExecuteReader();
        while(rdr.Read())
@@ -103,7 +98,6 @@ namespace BandTracker.Objects
       {
         foundBand.Id = rdr.GetInt32(0);
         foundBand.Name = rdr.GetString(1);
-        foundBand.Date = rdr.GetDateTime(2);
       }
 
       if (rdr != null)

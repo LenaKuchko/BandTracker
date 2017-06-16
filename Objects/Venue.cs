@@ -138,9 +138,8 @@ namespace BandTracker.Objects
       {
         int id = rdr.GetInt32(0);
         string name = rdr.GetString(1);
-        DateTime date = rdr.GetDateTime(2);
 
-        Band newBand = new Band(name, date, id);
+        Band newBand = new Band(name, id);
         bands.Add(newBand);
       }
 
