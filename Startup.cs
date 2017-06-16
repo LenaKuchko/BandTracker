@@ -40,6 +40,6 @@ namespace BandTracker
   }
   public static class DBConfiguration
   {
-    public static string ConnectionString = "Data Source=DESKTOP-6CVACGR\\SQLEXPRESS;Initial Catalog=hospital;Integrated Security=SSPI;";
+    public static string ConnectionString = "Data Source=DESKTOP-6CVACGR\\SQLEXPRESS;Initial Catalog=band_tracker;Integrated Security=SSPI;";
   }
 }

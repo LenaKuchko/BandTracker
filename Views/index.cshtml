@@ -1,0 +1,34 @@
+@{
+  Layout = "Shared/_Layout.cshtml";
+}
+
+<div class="row">
+  <div class="col-sm-6">
+    <h1 class="text-center">Venues</h1>
+    <hr>
+    <form action="/venues/new" method="get">
+      <button  class="btn btn-info" type="submit" name="button">Add venue</button>
+    </form>
+    <!-- <form action="/venues/update" method="get">
+      <button  class="btn btn-info" type="submit" name="button">Edit venue</button>
+    </form>
+    <form action="/venues/new" method="post">
+      <button  class="btn btn-info" type="submit" name="button">Add venue</button>
+    </form>
+  </div> -->
+    @if(@Model.ContainsKey("allVenues"))
+    {
+      @foreach(var venue in @Model["allVenues"])
+      {
+        <h3><a href="/@venue.Id"></a>@venue.Name</h3>
+      }
+    }
+  </div>
+  <div class="col-sm-6">
+    <h1 class="text-center">Bands</h1>
+    <hr>
+  </div>
+</div>
+<div class="row">
+
+</div>
