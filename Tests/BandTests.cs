@@ -14,9 +14,18 @@ namespace BandTracker
     {
       DBConfiguration.ConnectionString = "Data Source=DESKTOP-6CVACGR\\SQLEXPRESS;Initial Catalog=band_tracker_test;Integrated Security=SSPI;";
     }
+
+    [Fact]
+    public void Band_GetAll_DatabaseEmptyOnload()
+    {
+      List<Band> testList = Band.GetAll();
+      List<Band> controlList = new List<Band>{};
+      Assert.Equal(controlList, testList);
+    }
+
     public void Dispose()
     {
-
+      Band.DeleteAll();
     }
   }
 }

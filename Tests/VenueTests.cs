@@ -23,7 +23,6 @@ namespace BandTracker
       Assert.Equal(controlList, testList);
     }
 
-
     [Fact]
     public void Venue_Equals_VenueEqualsVenue()
     {
