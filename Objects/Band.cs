@@ -118,7 +118,6 @@ namespace BandTracker.Objects
       cmd.Parameters.Add(new SqlParameter("@VenueId", venueToAdd.Id));
       cmd.Parameters.Add(new SqlParameter("@Date", date));
 
-
       cmd.ExecuteNonQuery();
 
       DB.CloseConnection();
@@ -139,8 +138,9 @@ namespace BandTracker.Objects
       {
         int id = rdr.GetInt32(0);
         string name = rdr.GetString(1);
+        int capacity = rdr.GetInt32(2);
 
-        Venue newVenue = new Venue(name,id);
+        Venue newVenue = new Venue(name, capacity, id);
         venues.Add(newVenue);
       }
 

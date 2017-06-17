@@ -45,7 +45,7 @@ namespace BandTracker
       Post["/venues/new"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         model.Add("bands", Band.GetAll());
-        Venue newVenue = new Venue(Request.Form["name"]);
+        Venue newVenue = new Venue(Request.Form["name"], Request.Form["capacity"]);
         newVenue.Save();
         if (Request.Form["band"] != "")
         {
@@ -113,7 +113,6 @@ namespace BandTracker
         model.Add("allBands", Band.GetAll());
         model.Add("delete-confirm", name);
         return View["index.cshtml", model];
-
       };
     }
   }

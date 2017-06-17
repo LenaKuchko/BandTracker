@@ -26,15 +26,15 @@ namespace BandTracker
     [Fact]
     public void Venue_Equals_VenueEqualsVenue()
     {
-      Venue controlVenue = new Venue("ModaCenter");
-      Venue testVenue = new Venue("ModaCenter");
+      Venue controlVenue = new Venue("ModaCenter", 5000);
+      Venue testVenue = new Venue("ModaCenter", 5000);
       Assert.Equal(controlVenue, testVenue);
     }
 
     [Fact]
     public void Venue_Save_SaveToDatabase()
     {
-      Venue newVenue = new Venue("ModaCenter");
+      Venue newVenue = new Venue("ModaCenter", 5000);
       newVenue.Save();
 
       Venue testVenue = Venue.GetAll()[0];
@@ -44,7 +44,7 @@ namespace BandTracker
     [Fact]
     public void Venue_Find_FindsVenueInDB()
     {
-       Venue controlVenue = new Venue("Modacenter");
+       Venue controlVenue = new Venue("Modacenter", 6000);
        controlVenue.Save();
        Venue testVenue = Venue.Find(controlVenue.Id);
 
@@ -54,7 +54,7 @@ namespace BandTracker
     [Fact]
     public void Venue_AddBand_AssignsBandToVenue()
      {
-      Venue newVenue = new Venue("Modacenter");
+      Venue newVenue = new Venue("Modacenter", 5000);
       newVenue.Save();
       Band newBand = new Band("Maroon5");
       newBand.Save();
@@ -70,12 +70,12 @@ namespace BandTracker
     [Fact]
     public void Venue_Update_UpdatesVenueInfo()
     {
-      Venue newVenue = new Venue("Modacenter");
+      Venue newVenue = new Venue("Modacenter", 5000);
       newVenue.Save();
 
       newVenue.Update("Providence Park");
 
-      Venue controlVenue = new Venue("Providence Park", newVenue.Id);
+      Venue controlVenue = new Venue("Providence Park", 5000, newVenue.Id);
 
       Assert.Equal(controlVenue, newVenue);
     }
@@ -101,9 +101,9 @@ namespace BandTracker
     [Fact]
     public void Venue_Delete_DeletesSingleVenue()
     {
-      Venue venue1 = new Venue("ModaCenter");
+      Venue venue1 = new Venue("ModaCenter", 7000);
       venue1.Save();
-      Venue venue2 = new Venue("Providence Park");
+      Venue venue2 = new Venue("Providence Park", 10000);
       venue2.Save();
 
       venue1.DeleteSingleVenue();
@@ -117,7 +117,7 @@ namespace BandTracker
     [Fact]
     public void Venue_DeleteBands_DeletesAllOfVenuesBands()
     {
-      Venue venue = new Venue("Providence Park");
+      Venue venue = new Venue("Providence Park", 10000);
       venue.Save();
       Band band1 = new Band("Maroon5");
       band1.Save();
@@ -137,7 +137,7 @@ namespace BandTracker
     [Fact]
     public void Venue_DeleteBandRelationship_DeletesRelationship()
     {
-      Venue venue = new Venue("ModaCenter");
+      Venue venue = new Venue("ModaCenter", 5000);
       venue.Save();
       Band band1 = new Band("Maroon5");
       band1.Save();

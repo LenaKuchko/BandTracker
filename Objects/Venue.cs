@@ -8,16 +8,19 @@ namespace BandTracker.Objects
   {
     public int Id {get; set;}
     public string Name {get; set;}
+    public int Capacity {get; set;}
 
     public Venue()
     {
       Name = null;
+      Capacity = 0;
       Id = 0;
     }
 
-    public Venue(string name, int id = 0)
+    public Venue(string name, int capacity, int id = 0)
     {
       Name = name;
+      Capacity = capacity;
       Id = id;
     }
 
@@ -34,8 +37,9 @@ namespace BandTracker.Objects
       {
         int id = rdr.GetInt32(0);
         string name = rdr.GetString(1);
+        int capacity = rdr.GetInt32(2);
 
-        Venue newVenue = new Venue(name, id);
+        Venue newVenue = new Venue(name, capacity, id);
         allVenues.Add(newVenue);
       }
 
@@ -57,7 +61,9 @@ namespace BandTracker.Objects
       else
       {
         Venue newVenue = (Venue) otherVenue;
-        return (this.Id == newVenue.Id && this.Name == newVenue.Name);
+        return (this.Id == newVenue.Id &&
+                this.Name == newVenue.Name &&
+                this.Capacity == newVenue.Capacity);
       }
     }
 
@@ -66,9 +72,10 @@ namespace BandTracker.Objects
        DB.CreateConnection();
        DB.OpenConnection();
 
-       SqlCommand cmd = new SqlCommand("INSERT INTO venues (name) OUTPUT INSERTED.id VALUES (@VenueName)", DB.GetConnection());
+       SqlCommand cmd = new SqlCommand("INSERT INTO venues (name, capacity) OUTPUT INSERTED.id VALUES (@VenueName, @VenueCapacity)", DB.GetConnection());
 
        cmd.Parameters.Add(new SqlParameter("@VenueName", this.Name));
+       cmd.Parameters.Add(new SqlParameter("@VenueCapacity", this.Capacity));
 
        SqlDataReader rdr = cmd.ExecuteReader();
        while(rdr.Read())
@@ -98,6 +105,7 @@ namespace BandTracker.Objects
       {
         foundVenue.Id = rdr.GetInt32(0);
         foundVenue.Name = rdr.GetString(1);
+        foundVenue.Capacity = rdr.GetInt32(2);
       }
 
       if (rdr != null)
@@ -168,7 +176,6 @@ namespace BandTracker.Objects
       while(rdr.Read())
       {
         DateTime date = rdr.GetDateTime(3);
-
         events.Add(date);
       }
 

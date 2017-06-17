@@ -5,21 +5,30 @@
 @if(@Model["show"] == "update-form")
 {
   <div class="row">
-    <h2>@Model["venue"].Name</h2>
+    <h2>Edit Venue @Model["venue"].Name</h2>
     <form action='/venues/@Model["venue"].Id/update' method="post">
       <input type="hidden" name="_method" value="PATCH">
       <div class="form-group">
-        <label>Venue Name</label>
+        <label>Name</label>
         <input class="form-control" type="text" name="name" value='@Model["venue"].Name' required>
       </div>
-      <h3>Please check band which you want to delete</h3>
-      <ul>
-        @foreach(var band in @Model["bands"])
-        {
-          <h4><input type="checkbox" name="band" value="@band.Id"> Band: @band.Name</h4>
-        }
-      </ul>
-      <button class="btn btn-danger" type="submit" name="button">Update</button>
+      <div class="row">
+        <div class="col-md-6">
+          <h3>Delete Band</h3>
+            @foreach(var band in @Model["bands"])
+            {
+              <h4><input type="checkbox" name="band" value="@band.Id">@band.Name</h4>
+            }
+        </div>
+        <div class="col-md-6">
+          <h3>Add Band</h3>
+            @foreach(var band in @Model["bands"])
+            {
+              <h4><input type="checkbox" name="band" value="@band.Id">@band.Name</h4>
+            }
+        </div>
+      </div>
+      <button class="btn btn-warning" type="submit" name="button">Update</button>
     </form>
   </div>
 }

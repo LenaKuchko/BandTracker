@@ -54,7 +54,7 @@ namespace BandTracker
     [Fact]
     public void Band_AddVenue_AssignsVenueToBand()
      {
-      Venue newVenue = new Venue("Modacenter");
+      Venue newVenue = new Venue("Modacenter", 5000);
       newVenue.Save();
       Band newBand = new Band("Maroon5");
       newBand.Save();
