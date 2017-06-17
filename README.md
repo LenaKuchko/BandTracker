@@ -14,7 +14,6 @@ Web application that helps user to manage a database of bands and venues. User i
 7. In your Web-browser enter - localhost:5004.
 8. Using IDE of your choice to open code.
 
-### Known Bugs.
 
 ### Specs
 

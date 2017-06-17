@@ -32,12 +32,20 @@
     }
   </div>
 </div>
+@if(@Model.ContainsKey("delete-confirm"))
+{
+  <h3>Venue @Model["delete-confirm"] was seccessfully deleted!</h3>
+}
 @if(@Model.ContainsKey("venue"))
 {
   <div class="row">
     <h2>@Model["venue"].Name</h2>
-    <form action='/venues/@Model["venue"].Id/update' method="get">
+    <form class="inline" action='/venues/@Model["venue"].Id/update' method="get">
       <button  class="btn btn-warning" type="submit" name="button">Edit venue</button>
+    </form>
+    <form class="inline" action='/venues/@Model["venue"].Id/delete' method="post">
+      <input type="hidden" name="_method" value="DELETE">
+      <button  class="btn btn-danger" type="submit" name="button">Delete venue</button>
     </form>
     <hr>
     <h3>Brief Description</h3>
