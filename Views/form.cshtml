@@ -2,39 +2,42 @@
   Layout = "Shared/_Layout.cshtml";
 }
 <a href="/">Home page</a>
-<h2 class="text-center">Add new venue</h2>
-<div class="col-sm-6">
-  <form action="/venues/new" method="post">
-    <div class="form-group">
-      <label>Venue's Name:</label>
-      <input type="text" name="name" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label>Bands:</label>
-      <select name="band" class="form-control">
-        <option value=""></option>
-        @if(@Model["bands"].Count != 0)
-        {
-          @foreach(var band in @Model["bands"])
-          {
-            <option value="@band.Id">@band.Name</option>
-          }
-        }
-      </select>
+@if(@Model.ContainsKey("add-venue"))
+{
+  <h2 class="text-center">Add new venue</h2>
+  <div class="col-sm-6">
+    <form action="/venues/new" method="post">
       <div class="form-group">
-        <label>Date:</label>
-        <input type="date" name="date" class="form-control" required>
+        <label>Venue's Name:</label>
+        <input type="text" name="name" class="form-control" required>
       </div>
-    </div>
-    <button type="submit" class="btn btn-info">Add venue</button>
-  </form>
-</div>
-<div class="col-sm-6">
-  @if(@Model.ContainsKey("new-venue"))
-  {
-    <h3>@Model["new-venue"].Name have been added successfully!</h3>
-  }
-</div>
+      <div class="form-group">
+        <label>Bands:</label>
+        <select name="band" class="form-control">
+          <option value=""></option>
+          @if(@Model["bands"].Count != 0)
+          {
+            @foreach(var band in @Model["bands"])
+            {
+              <option value="@band.Id">@band.Name</option>
+            }
+          }
+        </select>
+        <div class="form-group">
+          <label>Date:</label>
+          <input type="date" name="date" class="form-control" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-info">Add venue</button>
+    </form>
+  </div>
+  <div class="col-sm-6">
+    @if(@Model.ContainsKey("new-venue"))
+    {
+      <h3>@Model["new-venue"].Name have been added successfully!</h3>
+    }
+  </div>
+}
 
 @if(@Model.ContainsKey("new-band"))
 {
@@ -46,14 +49,14 @@
         <input type="text" name="name" class="form-control" required>
       </div>
       <div class="form-group">
-        <label>Bands:</label>
-        <select name="band" class="form-control">
+        <label>Venues:</label>
+        <select name="venue-choose" class="form-control">
           <option value=""></option>
           @if(@Model["venues"].Count != 0)
           {
             @foreach(var venue in @Model["venues"])
             {
-              <option value="@venue.Id">@band.Name</option>
+              <option value="@venue.Id">@venue.Name</option>
             }
           }
         </select>

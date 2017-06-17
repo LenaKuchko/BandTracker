@@ -39,6 +39,7 @@ namespace BandTracker
       Get["/venues/new"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         model.Add("bands", Band.GetAll());
+        model.Add("add-venue", null);
         return View["form.cshtml", model];
       };
       Post["/venues/new"] = _ => {
@@ -86,20 +87,21 @@ namespace BandTracker
       Get["/bands/new"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         model.Add("new-band", null);
-        model.Add("allVenues", Venue.GetAll());
+        model.Add("venues", Venue.GetAll());
         return View["form.cshtml", model];
       };
       Post["/bands/new"] = _ => {
         Dictionary<string, object> model = new Dictionary<string, object>{};
         Band newBand = new Band(Request.Form["name"]);
         newBand.Save();
-        if (Request.Form["venue"] != "")
+        if (Request.Form["venue-selected"] != "")
         {
-          Venue selectedVenue = Venue.Find(Request.Form["venue"]);
+          Venue selectedVenue = Venue.Find(Request.Form["venue-choose"]);
           newBand.AddVenue(selectedVenue, Request.Form["date"]);
-          model.Add("venue", Venue.Find(Request.Form["venue"]));
+          model.Add("venue-selected", selectedVenue);
         }
         model.Add("allVenues", Venue.GetAll());
+        model.Add("allBands", Band.GetAll());
         return View["index.cshtml", model];
       };
     }
