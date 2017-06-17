@@ -161,6 +161,35 @@ namespace BandTracker.Objects
       return bands;
     }
 
+    public List<Band> GetOtherBands()
+    {
+      DB.CreateConnection();
+      DB.OpenConnection();
+
+      SqlCommand cmd = new SqlCommand("SELECT bands.id, bands.name FROM bands LEFT JOIN bands_venues on bands.id=bands_venues.band_id LEFT JOIN venues on venues.id=bands_venues.venue_id WHERE venue_id <> @VenueId OR bands_venues.venue_id is null GROUP BY bands.id, bands.name;", DB.GetConnection());
+      cmd.Parameters.Add(new SqlParameter("@VenueId", this.Id));
+
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      List<Band> bands = new List<Band>{};
+      while(rdr.Read())
+      {
+        int id = rdr.GetInt32(0);
+        string name = rdr.GetString(1);
+
+        Band newBand = new Band(name, id);
+        bands.Add(newBand);
+      }
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      DB.CloseConnection();
+
+      return bands;
+    }
+
     public List<DateTime> GetEvents(Band band)
     {
       DB.CreateConnection();

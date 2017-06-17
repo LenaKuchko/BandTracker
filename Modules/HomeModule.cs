@@ -62,7 +62,7 @@ namespace BandTracker
         model.Add("venue", selectedVenue);
         model.Add("bands", selectedVenue.GetBands());
         model.Add("show", "update-form");
-        // model.Add("otherBands", selectedVenue.GetBandsNotBelong());
+        model.Add("otherBands", selectedVenue.GetOtherBands());
 
         return View["update_form.cshtml", model];
       };
